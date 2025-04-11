@@ -1,23 +1,21 @@
 class Solution {
 public:
     bool isPalindrome(string s) {
-        string cleanedString = "";
-        for (int i = 0; i < s.size(); i++) {
-            if (isalnum(s[i])) {
-                cleanedString += tolower(s[i]);
+        string str ="";
+        for(auto e: s){
+            if(isalnum(e)){
+                str+= tolower(e);
             }
         }
-        int left = 0;
-        int right = cleanedString.size() - 1;
-
-        while (left < right) {
-            if (cleanedString[left] != cleanedString[right]) {
+        int j=str.size()-1;
+        int i=0;
+        while(i<j){
+            if(str[i]!=str[j]){
                 return false;
             }
-            left++;
-            right--;
+            i++;
+            j--;
         }
-
         return true;
     }
 };
