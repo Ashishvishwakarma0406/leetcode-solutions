@@ -1,21 +1,37 @@
 class Solution {
 public:
+    bool isLetterOrDigit(char letter){
+        if(letter >= 'a' && letter <= 'z') return true;
+        if(letter >= 'A' && letter <= 'Z') return true;
+        if(letter >= '0' && letter <= '9') return true;
+        return false;
+        
+    }
+
+    char toLowerCase(char letter) {
+        if (letter >= 'A' && letter <= 'Z') {
+            int distance = letter - 'A';
+            char lowercase = 'a' + distance;
+            return lowercase;
+        }
+        // Return the original letter if it's not uppercase
+        return letter;
+    }
+
     bool isPalindrome(string s) {
-        string str ="";
-        for(auto e: s){
-            if(isalnum(e)){
-                str+= tolower(e);
-            }
+        int len = s.length();
+        if (len <= 1) return true;
+        int start = 0, end = len - 1;
+
+        while (start < end) {
+            while (start < end && !isLetterOrDigit(s[start])) start++;
+            while (start < end && !isLetterOrDigit(s[end])) end--;
+            if (start < end && toLowerCase(s[start]) != toLowerCase(s[end])) return false;
+            // Found a match, proceed to the next check
+            start++;
+            end--;
         }
-        int j=str.size()-1;
-        int i=0;
-        while(i<j){
-            if(str[i]!=str[j]){
-                return false;
-            }
-            i++;
-            j--;
-        }
+
         return true;
     }
 };
