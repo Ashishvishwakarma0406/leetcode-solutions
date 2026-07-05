@@ -10,18 +10,28 @@
  */
 class Solution {
 public:
+    void insert(vector<int> &arr,ListNode* head){
+        if(head==nullptr)return;
+        arr.push_back(head->val);
+        head=head->next;
+        return insert(arr,head);
+    }
+    void insertInLL(vector<int> &arr,ListNode* head,int n){
+        if(n<0)return;
+        head->val=arr[n];
+        head= head->next;
+        n=n-1;
+        return insertInLL(arr,head,n);
+    }
     ListNode* reverseList(ListNode* head) {
-        struct ListNode *prev = NULL;
-        struct ListNode *curr = head;
-        struct ListNode *next = NULL;
-        
-        while (curr != NULL) {
-            next = curr->next;  
-            curr->next = prev; 
-            prev = curr;       
-            curr = next;       
-        }
-        
-        return prev;
+        ListNode* temp= head;
+        vector<int> arr;
+        insert(arr,temp);
+        ListNode* temp2= head;
+        int n = arr.size()-1;
+        insertInLL(arr,temp2,n);
+
+        return head;
+
     }
 };
